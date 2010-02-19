@@ -64,11 +64,20 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	NSLog(@"touches began count %d, %@", [touches count], touches);
-	
-	if([touches count] < 1)
+	//NSLog(@"touches began count %d, %@", [touches count], touches);
+	if([touches count] >1 )
 	{
 		twoFingers = YES;
+		//Get all the touches.
+		NSSet *allTouches = [event allTouches];
+		//Get the first touch.
+		UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+		//Get the second touch.
+		UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
+		CGFloat dx = [touch2 locationInView:self].x-[touch1	locationInView:self].y;
+		NSLog(@"The x differece is: %f",dx);
+
+		
 	}
 	
 	// tell the view to redraw
