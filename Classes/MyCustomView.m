@@ -84,6 +84,9 @@
 		NSLog(@"The differece x,y is: %f, %f",dx,dy);
 		CGFloat myAngle= atan(dy/dx);
 		rotation=myAngle;
+		//Lets bring the rectangle to the midpoint of the the two touch points
+		centerx=[touch2 locationInView:self].x/2+[touch1	locationInView:self].x/2;
+		centery=[touch2 locationInView:self].y/2+[touch1	locationInView:self].y/2;
 
 		
 	} else {
@@ -125,6 +128,9 @@
 		NSLog(@"The differece x,y is: %f, %f",dx,dy);
 		CGFloat myAngle= atan(dy/dx);
 		rotation=myAngle;
+		//Lets bring the rectangle to the midpoint of the the two touch points
+		centerx=[touch2 locationInView:self].x/2+[touch1	locationInView:self].x/2;
+		centery=[touch2 locationInView:self].y/2+[touch1	locationInView:self].y/2;
 	}
 
 	// tell the view to redraw
