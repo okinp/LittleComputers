@@ -27,6 +27,8 @@
 	squareSize = 100.0f;
 	twoFingers = NO;
 	rotation = 0.5f;
+	centerx =0;
+	centery =0;
 	// You have to explicity turn on multitouch for the view
 	self.multipleTouchEnabled = YES;
 	
@@ -78,7 +80,16 @@
 		NSLog(@"The x differece is: %f",dx);
 
 		
+	} else {
+		twoFingers =NO;
+		NSSet *allTouches = [event allTouches];
+		//Get the first touch.
+		UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+		//translate rectangle
+		centerx = [touch1 locationInView:self].x;
+		centery = [touch1 locationInView:self].y;
 	}
+
 	
 	// tell the view to redraw
 	[self setNeedsDisplay];
@@ -87,7 +98,12 @@
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	NSLog(@"touches moved count %d, %@", [touches count], touches);
-	
+	NSSet *allTouches = [event allTouches];
+	//Get the first touch.
+	UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+	//translate rectangle on move
+	centerx = [touch1 locationInView:self].x;
+	centery = [touch1 locationInView:self].y;
 	// tell the view to redraw
 	[self setNeedsDisplay];
 }
@@ -107,8 +123,8 @@
 {
 	NSLog(@"drawRect");
 	
-	CGFloat centerx = rect.size.width/2;
-	CGFloat centery = rect.size.height/2;
+	//CGFloat centerx = rect.size.width/2;
+	//CGFloat centery = rect.size.height/2;
 	CGFloat half = squareSize/2;
 	CGRect theRect = CGRectMake(-half, -half, squareSize, squareSize);
 	

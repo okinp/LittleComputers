@@ -14,6 +14,8 @@
 	CGFloat                    rotation;
 	CGColorRef                 aColor;
 	BOOL                       twoFingers;
+	CGFloat					   centerx;
+	CGFloat					   centery;
 	
 	IBOutlet UILabel           *xField;
 	IBOutlet UILabel           *yField;
