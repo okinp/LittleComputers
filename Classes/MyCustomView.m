@@ -27,8 +27,11 @@
 	squareSize = 100.0f;
 	twoFingers = NO;
 	rotation = 0.5f;
-	centerx =0;
-	centery =0;
+	// Get screen bounds
+	rect = [[UIScreen mainScreen] bounds];
+	//Initialize position
+	centerx =rect.size.width/2;
+	centery =rect.size.height/2;
 	// You have to explicity turn on multitouch for the view
 	self.multipleTouchEnabled = YES;
 	
@@ -123,7 +126,7 @@
 {
 	NSLog(@"drawRect");
 	
-	//CGFloat centerx = rect.size.width/2;
+	//CGFloat centerx = centerx+rect.size.width/2;
 	//CGFloat centery = rect.size.height/2;
 	CGFloat half = squareSize/2;
 	CGRect theRect = CGRectMake(-half, -half, squareSize, squareSize);

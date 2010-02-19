@@ -20,6 +20,7 @@
 	IBOutlet UILabel           *xField;
 	IBOutlet UILabel           *yField;
 	IBOutlet UILabel           *zField;
+	CGRect rect;
 }
 -(void) configureAccelerometer;
 @end
