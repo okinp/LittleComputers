@@ -79,8 +79,11 @@
 		UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
 		//Get the second touch.
 		UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
-		CGFloat dx = [touch2 locationInView:self].x-[touch1	locationInView:self].y;
-		NSLog(@"The x differece is: %f",dx);
+		CGFloat dx = [touch2 locationInView:self].x-[touch1	locationInView:self].x;
+		CGFloat dy = [touch2 locationInView:self].y-[touch1	locationInView:self].y;
+		NSLog(@"The differece x,y is: %f, %f",dx,dy);
+		CGFloat myAngle= atan(dy/dx);
+		rotation=myAngle;
 
 		
 	} else {
@@ -101,12 +104,29 @@
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
 	NSLog(@"touches moved count %d, %@", [touches count], touches);
-	NSSet *allTouches = [event allTouches];
-	//Get the first touch.
-	UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
-	//translate rectangle on move
-	centerx = [touch1 locationInView:self].x;
-	centery = [touch1 locationInView:self].y;
+	if ([touches count] <=1){
+		twoFingers= NO;
+		NSSet *allTouches = [event allTouches];
+		//Get the first touch.
+		UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+		//translate rectangle on move
+		centerx = [touch1 locationInView:self].x;
+		centery = [touch1 locationInView:self].y;
+	} else {
+		twoFingers = YES;
+		//Get all the touches.
+		NSSet *allTouches = [event allTouches];
+		//Get the first touch.
+		UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+		//Get the second touch.
+		UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
+		CGFloat dx = [touch2 locationInView:self].x-[touch1	locationInView:self].x;
+		CGFloat dy = [touch2 locationInView:self].y-[touch1	locationInView:self].y;
+		NSLog(@"The differece x,y is: %f, %f",dx,dy);
+		CGFloat myAngle= atan(dy/dx);
+		rotation=myAngle;
+	}
+
 	// tell the view to redraw
 	[self setNeedsDisplay];
 }
@@ -139,7 +159,7 @@
 	CGContextTranslateCTM(context, centerx, centery);
 	
 	// Uncomment to see the rotated square
-	//CGContextRotateCTM(context, rotation);
+	CGContextRotateCTM(context, rotation);
 	
 	// Set red stroke
 	CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
